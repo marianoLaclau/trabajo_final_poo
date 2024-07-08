@@ -2,6 +2,8 @@ import pandas as pd
 from abc import ABC
 from peewee import *
 from modelo_orm import *
+import os
+
 
 
 
@@ -12,7 +14,11 @@ class GestionarObra(ABC):
     @classmethod
     def extraer_datos (cls):
         try:
-            archivo_csv = "./observatorio-de-obras-urbanas.csv"
+            # Obtiene la ruta absoluta del directorio donde se encuentra este script
+            directorio_actual = os.path.dirname(os.path.abspath(__file__))
+            # Construye la ruta completa al archivo CSV
+            archivo_csv = os.path.join(directorio_actual, "observatorio-de-obras-urbanas.csv")
+            # Lee el archivo CSV
             df = pd.read_csv(archivo_csv, sep=",")
             return df
         
